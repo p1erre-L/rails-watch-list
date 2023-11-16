@@ -1,0 +1,10 @@
+<h1>New List</h1>
+
+<%= simple_form_for(@list) do |f| %>
+  <%= f.input :name %>
+  <%= f.submit %>
+<% end %>
+<hr class="mt-5">
+<%= link_to lists_path do %>
+  <button class="btn btn-outline-warning">Back</button>
+<% end %>

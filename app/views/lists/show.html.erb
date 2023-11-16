@@ -1,0 +1,41 @@
+<h1 class="text-center mt-3"><strong><%= @list.name.capitalize %></strong> (<%= @bookmarks.count%>)</h1>
+<div class="d-flex justify-content-between">
+  <%= link_to lists_path, class: "d-inline" do %>
+    <button class="btn btn-outline-warning mb-5">Back</button>
+  <% end %>
+
+  <%= link_to new_list_bookmark_path(@list), class: "d-inline" do %>
+    <button class="btn btn-success mb-5">Add Movie</button>
+  <% end %>
+</div>
+
+<div class="d-flex flex-wrap gap-3">
+  <% @bookmarks.each do |bookmark| %>
+    <div class="card px-0 rounded overflow-hidden" style="width: 20rem;">
+      <%= image_tag bookmark.movie.poster_url, alt: bookmark.movie.title, width: 200, class: "card-img-top" %>
+      <div class="card-body">
+        <h3><%= bookmark.movie.title %></h3>
+        <p><%= bookmark.movie.rating %> <i class="fa-solid fa-star"></i></p>
+        <hr>
+        <p><%= bookmark.movie.overview %></p>
+        <hr>
+        <p><strong>" <%= bookmark.comment %> "</strong></p>
+        <%= link_to bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} do %>
+          <i class="fa-solid fa-xmark h4"></i>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<hr class="my-5">
+
+<div>
+  <h3 class="text-success mb-3">Add Movie</h3>
+
+  <%= simple_form_for [@list, @bookmark] do |f| %>
+    <%= f.input :comment %>
+    <%= f.association :movie %>
+    <%= f.submit %>
+  <% end %>
+</div>

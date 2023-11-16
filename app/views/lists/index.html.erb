@@ -1,0 +1,9 @@
+<h1>My lists</h1>
+<hr>
+<div class="d-flex justify-content-around flex-wrap">
+  <% @lists.each do |list| %>
+    <%= link_to list_path(list) do %>
+      <button class="btn btn-outline-warning"><%= list.name.capitalize %></button>
+    <% end %>
+  <% end %>
+</div>
