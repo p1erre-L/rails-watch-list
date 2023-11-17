@@ -12,7 +12,7 @@
 
   <body>
     <nav class="bg-white d-flex justify-content-between px-5 pt-3">
-      <%= link_to lists_path, class: "text-muted text-decoration-none" do %>
+      <%= link_to root_path, class: "text-muted text-decoration-none" do %>
         <p><strong>My Lists</strong></p>
       <% end %>
       <%= link_to new_list_path, class: "text-muted text-decoration-none"  do %>
@@ -20,10 +20,7 @@
       <% end %>
     </nav>
 
-    <div class="container px-5 pt-3 pb-5">
-      <div class="row">
-        <%= yield %>
-      </div>
-    </div>
+      <%= yield %>
+
   </body>
 </html>

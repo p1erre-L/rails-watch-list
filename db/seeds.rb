@@ -9,17 +9,27 @@
 #   end
 
 require 'faker'
+require 'json'
+require 'open-uri'
+
+url = 'https://tmdb.lewagon.com/movie/top_rated'
+user_serialized = URI.open(url).read
+user = JSON.parse(user_serialized)
 
 puts 'Clearing seeds'
+Bookmark.destroy_all
 Movie.destroy_all
 List.destroy_all
 
+puts user['results'][0]['original_title']
+
 puts 'creating many movies'
-20.times do
-  rating = (rand(0..100) * 0.1).round(1)
-  title = Faker::Lorem.word(exclude_words: nil)
-  overview = Faker::Quote.famous_last_words
-  poster_url = Faker::LoremFlickr.image
+
+for index in 0...20 do
+  title = user['results'][index]['original_title']
+  overview = user['results'][index]['overview']
+  poster_url = "https://image.tmdb.org/t/p/w500/#{user['results'][index]['poster_path']}"
+  rating = user['results'][index]['vote_average']
 
   Movie.create(
     title:,
@@ -29,11 +39,23 @@ puts 'creating many movies'
   )
 end
 
-puts 'creating many lists'
-5.times do
-  List.create!(
-    name: Faker::Lorem.word(exclude_words: nil)
-  )
-end
+# puts 'creating many lists'
+# 5.times do
+#   List.create!(
+#     name: Faker::Lorem.word(exclude_words: nil)
+#   )
+# end
+
+# puts 'creating many bookmarks'
+# List.all.each do |list|
+#   5.times do
+#     bookmark = Bookmark.new(
+#       comment: Faker::Quote.famous_last_words
+#     )
+#     bookmark.list = list
+#     bookmark.movie = Movie.all.sample
+#     bookmark.save
+#   end
+# end
 
 puts 'done'

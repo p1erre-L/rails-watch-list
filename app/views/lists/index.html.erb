@@ -1,9 +1,38 @@
-<h1>My lists</h1>
-<hr>
-<div class="d-flex justify-content-around flex-wrap">
-  <% @lists.each do |list| %>
-    <%= link_to list_path(list) do %>
-      <button class="btn btn-outline-warning"><%= list.name.capitalize %></button>
-    <% end %>
-  <% end %>
+<div class="bg-img d-flex justify-content-center align-items-center">
+  <h1 class="text-white">Save any kind of movies</h1>
+</div>
+
+<div class="container my-5">
+  <div class="row">
+    <h2>My lists</h2>
+    <hr>
+    <div class="d-flex flex-wrap gap-3">
+      <% @lists.each do |list| %>
+        <%= link_to list_path(list), class: "text-decoration-none" do %>
+          <% if list.photo.key != nil %>
+            <div class="card px-0 rounded d-flex justify-content-center align-items-center" style="width: 18rem; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+                url('<%= cl_image_path list.photo.key, height: 300, crop: :fill %>'); height: 10rem;"
+              >
+              <p class="text-white h4"><strong><%= list.name.capitalize %></strong></p>
+            </div>
+
+          <% elsif list.movies.first.poster_url != nil %>
+            <div class="card px-0 rounded d-flex justify-content-center align-items-center" style="width: 18rem; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+              url('<%= image_path list.movies.first.photo_url, height: 300, crop: :fill %>'); height: 10rem;"
+            >
+              <p class="text-white h4"><strong><%= list.name.capitalize %></strong></p>
+            </div>
+
+          <% else %>
+            <div class="card px-0 rounded d-flex justify-content-center align-items-center" style="width: 18rem; background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+              url('https://res.cloudinary.com/dhubox8yl/image/upload/v1700226258/alex-litvin-MAYsdoYpGuk-unsplash_b9y6wi.jpg'); height: 10rem; object-fit: fill"
+            >
+              <p class="text-white h4"><strong><%= list.name.capitalize %></strong></p>
+            </div>
+
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>

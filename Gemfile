@@ -51,6 +51,9 @@ gem "font-awesome-sass", "~> 6.1"
 gem "simple_form"
 gem "sassc-rails" # Uncomment this line
 
+# Remote server images
+gem "cloudinary"
+
 # Seeding gem
 gem 'faker'
 
